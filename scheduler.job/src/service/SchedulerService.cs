@@ -30,7 +30,32 @@ namespace scheduler.job.src.service
 
             var output = new List<List<int>>();
 
-            // TODO fazer regra para comparar Data de conclusão e não deixar de passar 8 horas somando os jobs (quebrar em array)
+            // Executar lista de Jobs
+            ListaDeExecucao(output, scheduler.Jobs);
+
+            return output;
+        }
+
+        private IEnumerable<IEnumerable<int>> ListaDeExecucao(List<List<int>> output, List<JobEntity> jobs, int posicaoCorrente = 0)
+        {
+            if (posicaoCorrente < jobs.Count)
+            {
+                var jobAtual = jobs[posicaoCorrente];
+
+                if (posicaoCorrente > 0 && jobs[posicaoCorrente - 1].DataConclusao > jobAtual.DataConclusao.AddHours(-jobAtual.TempoEstimado))
+                    throw new DataConclusaoException("Data máxima de execução não foi respeitada!");
+
+                var temJobRegistrado = output.Any();
+                var tempoTotalUltimoArray = temJobRegistrado ?
+                jobs.Where(job => output[output.Count - 1].Select(item => item).Contains(job.Id)).Sum(job => job.TempoEstimado) : 0;
+
+                if (jobAtual.TempoEstimado + tempoTotalUltimoArray <= 8F && temJobRegistrado)
+                    output[output.Count - 1].Add(jobAtual.Id);
+                else
+                    output.Add(new List<int> { jobAtual.Id });
+
+                ListaDeExecucao(output, jobs, ++posicaoCorrente);
+            }
 
             return output;
         }
