@@ -49,5 +49,31 @@ namespace scheduler.test
 
             Assert.Throws<JobException>(() => _schedulerService.ExecuteJobs(data));
         }
+
+        [Fact]
+        public void DeveRetornarExcecaoComUmJobForaDaJanelaInicial()
+        {
+            string data = string.Empty;
+
+            using (StreamReader file = new StreamReader("../../../fixtures/massa-com-uma-data-menor-que-janela-inicial.json"))
+            {
+                data = file.ReadToEnd();
+            }
+
+            Assert.Throws<JanelaException>(() => _schedulerService.ExecuteJobs(data));
+        }
+
+        [Fact]
+        public void DeveRetornarExcecaoComUmJobForaDaJanelaFinal()
+        {
+            string data = string.Empty;
+
+            using (StreamReader file = new StreamReader("../../../fixtures/massa-com-uma-data-maior-que-janela-final.json"))
+            {
+                data = file.ReadToEnd();
+            }
+
+            Assert.Throws<JanelaException>(() => _schedulerService.ExecuteJobs(data));
+        }
     }
 }
