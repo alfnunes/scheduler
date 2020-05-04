@@ -1,0 +1,30 @@
+{
+  "JanelaInicio": "2019-11-10 09:00:00",
+  "JanelaFim": "2019-11-11 12:00:00",
+  "Jobs": [
+    {
+      "Id": 1,
+      "Descricao": "Importação de arquivos de fundos",
+      "DataConclusao": "2019-11-10 20:00:00",
+      "TempoEstimado": 8
+    },
+    {
+      "Id": 2,
+      "Descricao": "Importação de dados da Base Legada",
+      "DataConclusao": "2019-11-11 12:00:00",
+      "TempoEstimado": 4
+    },
+    {
+      "Id": 3,
+      "Descricao": "Importação de dados de integração",
+      "DataConclusao": "2019-11-11 08:00:00",
+      "TempoEstimado": 6
+    },
+    {
+      "Id": 4,
+      "Descricao": "Importação de arquivos de Teste",
+      "DataConclusao": "2019-11-10 22:00:00",
+      "TempoEstimado": 2
+    }
+  ]
+}
